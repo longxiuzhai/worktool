@@ -13,6 +13,26 @@ android {
         versionName "2.8.1"
     }
 
+    signingConfigs {
+        debug {
+            v1SigningEnabled true
+            v2SigningEnabled true
+            storeFile file('signature.jks')
+            keyAlias 'xiangfen'
+            keyPassword 'xiangfen666888'
+            storePassword 'xiangfen666888'
+        }
+        release {
+            // V1（Jar Signature）与V2（Full APK Signature）
+            v1SigningEnabled true
+            v2SigningEnabled true
+            storeFile file('signature.jks')
+            keyAlias 'xiangfen'
+            keyPassword 'xiangfen666888'
+            storePassword 'xiangfen666888'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
