@@ -6,7 +6,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "org.yameida.worktool"
+        applicationId "com.aipuls.tool"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 28011
