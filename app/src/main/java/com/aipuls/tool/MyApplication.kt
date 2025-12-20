@@ -45,20 +45,20 @@ class MyApplication : Application() {
         //初始化 Toast 框架
         ToastUtils.init(this)
         //初始化友盟统计
-        val key = "6284a3a3d024421570f97c3c"
-        val channel = "main_channel"
-        UMConfigure.preInit(this, key, channel)
-        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (SPUtils.getInstance().getString("uminit", "1") == "1") {
-            UMConfigure.init(this, key, channel, UMConfigure.DEVICE_TYPE_PHONE, "")
-        }
-        TalkingDataSDK.init(this, "80E9C84E39904DAFB28562910FF7C86C", getString(R.string.app_name) + "_master",
-            Constant.robotId
-        )
+//        val key = "6284a3a3d024421570f97c3c"
+//        val channel = "main_channel"
+//        UMConfigure.preInit(this, key, channel)
+//        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
+//        if (SPUtils.getInstance().getString("uminit", "1") == "1") {
+//            UMConfigure.init(this, key, channel, UMConfigure.DEVICE_TYPE_PHONE, "")
+//        }
+//        TalkingDataSDK.init(this, "80E9C84E39904DAFB28562910FF7C86C", getString(R.string.app_name) + "_master",
+//            Constant.robotId
+//        )
         //初始化企业微信sdk
         IWWAPIUtil.init(this)
         //初始化自动更新
-        UpdateAppUtils.init(this)
+//        UpdateAppUtils.init(this)
         //初始化前台服务
         PlayNotifyManager.show()
         //设置全局异常捕获重启

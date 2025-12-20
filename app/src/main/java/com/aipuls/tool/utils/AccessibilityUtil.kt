@@ -344,8 +344,8 @@ object AccessibilityUtil {
         if (retry) {
             sleep(SHORT_INTERVAL * 2)
             nodeInfo.refresh()
-            val click = clickByNode(WeworkController.weworkService, nodeInfo)
-            LogUtils.e("performClick failed! clickByNode: $click")
+//            val click = clickByNode(WeworkController.weworkService, nodeInfo)
+//            LogUtils.e("performClick failed! clickByNode: $click")
         }
         return false
     }

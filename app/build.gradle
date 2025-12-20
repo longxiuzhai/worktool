@@ -17,7 +17,7 @@ android {
         debug {
             v1SigningEnabled true
             v2SigningEnabled true
-            storeFile file('signature.jks')
+            storeFile file('../signature.jks')
             keyAlias 'xiangfen'
             keyPassword 'xiangfen666888'
             storePassword 'xiangfen666888'
@@ -26,7 +26,7 @@ android {
             // V1（Jar Signature）与V2（Full APK Signature）
             v1SigningEnabled true
             v2SigningEnabled true
-            storeFile file('signature.jks')
+            storeFile file('../signature.jks')
             keyAlias 'xiangfen'
             keyPassword 'xiangfen666888'
             storePassword 'xiangfen666888'

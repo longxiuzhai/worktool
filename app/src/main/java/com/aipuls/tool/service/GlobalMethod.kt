@@ -75,7 +75,7 @@ fun goHomeTab(title: String): Boolean {
                     LogUtils.e("登录前请先关闭WorkTool主功能！")
                     ToastUtils.show("登录前请先关闭WorkTool主功能！")
                     WeworkController.weworkService.disableSelf()
-                    WeworkController.weworkService.webSocketManager.close(1000, "wework logout")
+//                    WeworkController.weworkService.webSocketManager.close(1000, "wework logout")
                     MyApplication.launchIntent()
                     sleep(5000)
                 }
@@ -260,19 +260,19 @@ fun uploadCommandResult(message: WeworkMessageBean, errorCode: Int, errorReason:
  * 上传运行日志
  */
 fun log(message: Any?, type: Int = WeworkMessageBean.ROBOT_LOG) {
-    WeworkController.weworkService.webSocketManager.send(
-        WeworkMessageListBean(
-            WeworkMessageBean(
-                null, null,
-                type,
-                null,
-                null,
-                null,
-                if (message is String) message else GsonUtils.toJson(message)
-            ),
-            WeworkMessageListBean.SOCKET_TYPE_MESSAGE_LIST
-        ), true
-    )
+//    WeworkController.weworkService.webSocketManager.send(
+//        WeworkMessageListBean(
+//            WeworkMessageBean(
+//                null, null,
+//                type,
+//                null,
+//                null,
+//                null,
+//                if (message is String) message else GsonUtils.toJson(message)
+//            ),
+//            WeworkMessageListBean.SOCKET_TYPE_MESSAGE_LIST
+//        ), true
+//    )
 }
 
 /**

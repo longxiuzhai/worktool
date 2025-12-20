@@ -33,22 +33,26 @@ object Constant {
     val groupSuffixRegex = "(…)?(\\(\\d+\\))?$".toRegex()
     val digitalRegex = "\\(\\d+\\)\$".toRegex()
     var weworkCorpName: String
-        get() = SPUtils.getInstance().getString("weworkCorpName", "")
+        get() = "逆时针"
+//        get() = SPUtils.getInstance().getString("weworkCorpName", "")
         set(value) {
             SPUtils.getInstance().put("weworkCorpName", value)
         }
     var weworkCorpId: String
-        get() = SPUtils.getInstance().getString(weworkCorpName + "weworkCorpId", "")
+        get() = "ww0d8afa7538a01af0"
+//        get() = SPUtils.getInstance().getString(weworkCorpName + "weworkCorpId", "")
         set(value) {
             SPUtils.getInstance().put(weworkCorpName + "weworkCorpId", value)
         }
     var weworkAgentId: String
-        get() = SPUtils.getInstance().getString(weworkCorpName + "weworkAgentId", "")
+        get() = "1000007"
+//        get() = SPUtils.getInstance().getString(weworkCorpName + "weworkAgentId", "")
         set(value) {
             SPUtils.getInstance().put(weworkCorpName + "weworkAgentId", value)
         }
     var weworkSchema: String
-        get() = SPUtils.getInstance().getString(weworkCorpName + "weworkSchema", "")
+        get() = "wwauth0d8afa7538a01af0000007"
+//        get() = SPUtils.getInstance().getString(weworkCorpName + "weworkSchema", "")
         set(value) {
             SPUtils.getInstance().put(weworkCorpName + "weworkSchema", value)
         }

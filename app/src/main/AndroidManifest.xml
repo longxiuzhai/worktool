@@ -106,7 +106,7 @@
 
         <provider
             android:name=".utils.GenericFileProvider"
-            android:authorities="com.aipuls.toolfileprovider"
+            android:authorities="com.aipuls.tool.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

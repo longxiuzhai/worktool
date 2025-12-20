@@ -22,6 +22,136 @@ import kotlin.collections.LinkedHashSet
  * 全局操作类型 200 实现类
  */
 object WeworkOperationImpl {
+    /**
+     * @tosee  com.aipuls.tool.service.WeworkLoopImpl.autoTask
+     * @deprecated
+     */
+    fun autoTask(
+        message: WeworkMessageBean
+    ): Boolean {
+        // 进工作台
+        goHomeTab("工作台")
+        // 应用名字
+        val node = AccessibilityUtil.scrollAndFindByText(WeworkController.weworkService, getRoot(), "MagicFlow-UAT", exact = true)
+        if (node != null) {
+            AccessibilityUtil.performClick(node)
+            sleep(Constant.POP_WINDOW_INTERVAL*2)
+            val buttonList = AccessibilityUtil.findAllByClazz(getRoot(), com.aipuls.tool.utils.Views.Button)
+        } else{
+            LogUtils.e("工作台-MagicFlow-UAT未找到")
+            return false
+        }
+
+        AccessibilityUtil.findOneByText(getRoot(), "运营工具", exact = true, timeout = 2000)
+        val sendButton1 = AccessibilityUtil.findAllByClazz( getRoot(), com.aipuls.tool.utils.Views.TextView).firstOrNull { it.text?.toString() == "运营工具" }
+        if (sendButton1 != null) {
+//                        LogUtils.d("发送消息: \n$content")
+//                        log("发送消息: \n$content")
+            AccessibilityUtil.performClick(sendButton1)
+            sleep(Constant.POP_WINDOW_INTERVAL*2)
+        } else{
+            LogUtils.e("工作台-MagicFlow-UAT-运营工具 未找到")
+            return false
+        }
+
+//                if (AccessibilityUtil.findTextInput(getRoot(), receivedContent, append = true)) {
+        AccessibilityUtil.findOneByText(getRoot(), "自动任务", exact = true, timeout = 2000)
+        val sendButton2 = AccessibilityUtil.findAllByClazz( getRoot(), com.aipuls.tool.utils.Views.TextView).firstOrNull { it.text?.toString() == "自动任务" }
+        if (sendButton2 != null) {
+//                        LogUtils.d("发送消息: \n$content")
+//                        log("发送消息: \n$content")
+            AccessibilityUtil.performClick(sendButton2)
+            sleep(Constant.POP_WINDOW_INTERVAL*2)
+            //                WeworkLoopImpl.getChatMessageList(needInfer = false, titleList = titleList)
+//                        goHome()
+        } else {
+            LogUtils.e("工作台-MagicFlow-UAT-运营工具-自动任务 未找到")
+            return false
+        }
+
+        AccessibilityUtil.findOneByText(getRoot(), "开始任务", exact = true, timeout = 2000)
+        val sendButton3 = AccessibilityUtil.findAllByClazz( getRoot(), com.aipuls.tool.utils.Views.Button).firstOrNull { it.text?.toString() == "开始任务" }
+        if (sendButton3 != null) {
+//                        LogUtils.d("发送消息: \n$content")
+//                        log("发送消息: \n$content")
+            AccessibilityUtil.performClick(sendButton3)
+            sleep(Constant.POP_WINDOW_INTERVAL*2)
+            //                WeworkLoopImpl.getChatMessageList(needInfer = false, titleList = titleList)
+//                        goHome()
+        } else {
+            LogUtils.e("工作台-MagicFlow-UAT-运营工具-自动任务-开始任务 未找到")
+            return false
+        }
+        val sendButton31 = AccessibilityUtil.findAllByClazz( getRoot(), com.aipuls.tool.utils.Views.TextView).firstOrNull {
+            (it.text != null && it.text.toString().startsWith("找到有任务的群ID:"))
+        }
+        var groupId = ""
+        if (sendButton31 != null) {
+            groupId = sendButton31.text.toString().replace("找到有任务的群ID:", "");
+            LogUtils.i("工作台-MagicFlow-UAT-运营工具-自动任务 找到有任务的群ID:${groupId}")
+        } else {
+            LogUtils.i("工作台-MagicFlow-UAT-运营工具-自动任务 没有任务")
+            return false
+        }
+
+        AccessibilityUtil.findOneByText(getRoot(), "测动任务", exact = true, timeout = 2000)
+        val sendButton11 = AccessibilityUtil.findAllByClazz( getRoot(), com.aipuls.tool.utils.Views.TextView).firstOrNull { it.text?.toString() == "测动任务" }
+        if (sendButton11 != null) {
+//                        LogUtils.d("发送消息: \n$content")
+//                        log("发送消息: \n$content")
+            AccessibilityUtil.performClick(sendButton11)
+            sleep(Constant.POP_WINDOW_INTERVAL*3)
+            //                WeworkLoopImpl.getChatMessageList(needInfer = false, titleList = titleList)
+//                        goHome()
+        } else {
+            LogUtils.e("工作台-MagicFlow-UAT-运营工具-自动任务-群ID：${groupId}-自动任务（工具栏） 未找到")
+            return false
+        }
+
+        AccessibilityUtil.findOneByText(getRoot(), "待发送", exact = true, timeout = 2000)
+        val sendButton12 = AccessibilityUtil.findAllByClazz( getRoot(), com.aipuls.tool.utils.Views.TextView).firstOrNull { it.text?.toString() == "待发送" }
+        if (sendButton12 != null) {
+        } else {
+            LogUtils.e("工作台-MagicFlow-UAT-运营工具-自动任务-群ID：${groupId}-自动任务（工具栏） 未找到“待发送”的记录")
+            return false
+        }
+//            AccessibilityUtil.findOneByText(getRoot(), "一键发送", exact = true, timeout = 2000)
+            AccessibilityUtil.findOneByText(getRoot(), "一键发送", exact = true, timeout = 2000)
+            val sendButton13 = AccessibilityUtil.findAllByClazz(
+                getRoot(),
+                com.aipuls.tool.utils.Views.TextView
+            ).firstOrNull { it.text?.toString() == "一键发送" }
+
+            if (sendButton13 != null) {
+//                        LogUtils.d("发送消息: \n$content")
+//                        log("发送消息: \n$content")
+                AccessibilityUtil.performClick(sendButton13)
+                sleep(Constant.POP_WINDOW_INTERVAL)
+            }else{
+                LogUtils.e("工作台-MagicFlow-UAT-运营工具-自动任务-群ID：${groupId}-自动任务（工具栏）-一键发送 未找到")
+                return false
+            }
+        var end = 9;
+        do {
+            AccessibilityUtil.findOneByText(getRoot(), "发送", exact = true, timeout = 2000)
+            val sendButton21 = AccessibilityUtil.findAllByClazz(
+                getRoot(),
+                com.aipuls.tool.utils.Views.TextView
+            ).firstOrNull { it.text?.toString() == "发送" }
+
+            if (sendButton13 != null) {
+    //                        LogUtils.d("发送消息: \n$content")
+    //                        log("发送消息: \n$content")
+                AccessibilityUtil.performClick(sendButton13)
+                sleep(Constant.POP_WINDOW_INTERVAL*2)
+            }else{
+                LogUtils.e("工作台-MagicFlow-UAT-运营工具-自动任务-群ID：${groupId}-自动任务（工具栏）-一键发送-发送 未找到")
+                end --;
+            }
+        } while(end > 0)
+//                }
+        return true;
+    }
 
     /**
      * 在房间内发送消息
@@ -40,7 +170,94 @@ object WeworkOperationImpl {
         val startTime = System.currentTimeMillis()
         if (receivedContent.isNullOrEmpty()) {
             LogUtils.d("未发现发送内容")
-            uploadCommandResult(message, ExecCallbackBean.ERROR_ILLEGAL_DATA, "发送内容为空", startTime, listOf(), titleList)
+//            uploadCommandResult(message, ExecCallbackBean.ERROR_ILLEGAL_DATA, "发送内容为空", startTime, listOf(), titleList)
+            goHome()
+            return false
+        }
+        val successList = arrayListOf<String>()
+        val failList = arrayListOf<String>()
+        for (title in LinkedHashSet(titleList)) {
+            var successFlag = true
+            if (WeworkRoomUtil.intoRoom(title) || WeworkRoomUtil.intoRoom(title, fastIn = false)) {
+                val roomType = WeworkRoomUtil.getRoomType()
+                var titleList = arrayListOf(title) ?: WeworkRoomUtil.getRoomTitle()
+                if (titleList.count { it.endsWith("…") } > 0) {
+                    LogUtils.d("title too long... try get full name titleList: ${titleList.joinToString()}")
+                    if (roomType == WeworkMessageBean.ROOM_TYPE_INTERNAL_CONTACT || roomType == WeworkMessageBean.ROOM_TYPE_EXTERNAL_CONTACT) {
+                        titleList = WeworkRoomUtil.getFriendName()
+                    } else if (Constant.fullGroupName
+                        && (roomType == WeworkMessageBean.ROOM_TYPE_INTERNAL_GROUP || roomType == WeworkMessageBean.ROOM_TYPE_EXTERNAL_GROUP)) {
+                        titleList = WeworkRoomUtil.getFullGroupTitle()
+                    }
+                }
+                AccessibilityExtraUtil.loadingPage("ExternalGroupMessageListActivity", "ExternalWechatUserMessageListActivity", "MessageListActivity")
+                if (roomType == WeworkMessageBean.ROOM_TYPE_UNKNOWN || titleList.size == 0) {
+                    LogUtils.e("非聊天房间 无法发送消息")
+                    error("非聊天房间 无法发送消息")
+                    return false
+                }
+//                if (AccessibilityUtil.findTextInput(getRoot(), receivedContent, append = true)) {
+                    AccessibilityUtil.findOneByText(getRoot(), "自动任务", exact = true, timeout = 2000)
+                    val sendButton = AccessibilityUtil.findAllByClazz(
+                        getRoot(),
+                        com.aipuls.tool.utils.Views.TextView
+                    ).firstOrNull { it.text?.toString() == "自动任务" }
+
+                    if (sendButton != null) {
+//                        LogUtils.d("发送消息: \n$content")
+//                        log("发送消息: \n$content")
+                        AccessibilityUtil.performClick(sendButton)
+                        sleep(Constant.POP_WINDOW_INTERVAL)
+    //                WeworkLoopImpl.getChatMessageList(needInfer = false, titleList = titleList)
+//                        goHome()
+
+                        AccessibilityUtil.findOneByText(getRoot(), "一键发送", exact = true, timeout = 2000)
+                        AccessibilityUtil.findOneByText(getRoot(), "18", exact = true, timeout = 2000)
+                        val sendButton = AccessibilityUtil.findAllByClazz(
+                            getRoot(),
+                            com.aipuls.tool.utils.Views.TextView
+                        ).firstOrNull { it.text?.toString() == "18" }
+
+                        if (sendButton != null) {
+//                        LogUtils.d("发送消息: \n$content")
+//                        log("发送消息: \n$content")
+                            AccessibilityUtil.performClick(sendButton)
+                            sleep(Constant.POP_WINDOW_INTERVAL)
+                        }
+                        return true
+                    } else {
+                        LogUtils.e("未找到发送按钮")
+                        error("未找到发送按钮")
+                    }
+//                }
+            } else {
+                successFlag = false
+            }
+
+            if (!successFlag) {
+                //
+            }
+        }
+        return true
+    }
+    /**
+     * 在房间内发送消息
+     * @param titleList 房间名称
+     * @param receivedContent 回复内容
+     * @param at 要at的昵称
+     * @see WeworkMessageBean.TEXT_TYPE
+     */
+    fun sendMessage1(
+        message: WeworkMessageBean,
+        titleList: List<String>,
+        receivedContent: String?,
+        at: String? = null,
+        atList: List<String>? = null
+    ): Boolean {
+        val startTime = System.currentTimeMillis()
+        if (receivedContent.isNullOrEmpty()) {
+            LogUtils.d("未发现发送内容")
+//            uploadCommandResult(message, ExecCallbackBean.ERROR_ILLEGAL_DATA, "发送内容为空", startTime, listOf(), titleList)
             goHome()
             return false
         }
@@ -75,11 +292,11 @@ object WeworkOperationImpl {
                 }
             }
         }
-        if (failList.isNotEmpty()) {
-            uploadCommandResult(message, ExecCallbackBean.ERROR_SEND_MESSAGE, "发送成功: ${successList.joinToString()} 发送失败: ${failList.joinToString()}", startTime, successList, failList)
-            return false
-        }
-        uploadCommandResult(message, ExecCallbackBean.SUCCESS, "", startTime, successList, failList)
+//        if (failList.isNotEmpty()) {
+//            uploadCommandResult(message, ExecCallbackBean.ERROR_SEND_MESSAGE, "发送成功: ${successList.joinToString()} 发送失败: ${failList.joinToString()}", startTime, successList, failList)
+//            return false
+//        }
+//        uploadCommandResult(message, ExecCallbackBean.SUCCESS, "", startTime, successList, failList)
         return true
     }
 
@@ -2926,11 +3143,11 @@ object WeworkOperationImpl {
         LogUtils.v("atFailed: $atFailed")
         val content = if (atFailed) "@${atList?.joinToString()} $text" else text
         val append = (reply == true) || (!atList.isNullOrEmpty() && !atFailed)
-        WeworkLoopImpl.getChatMessageList(
-            needInfer = false,
-            imageCheck = false,
-            titleList = titleList
-        )
+//        WeworkLoopImpl.getChatMessageList(
+//            needInfer = false,
+//            imageCheck = false,
+//            titleList = titleList
+//        )
         if (AccessibilityUtil.findTextInput(getRoot(), content, append = append)) {
             AccessibilityUtil.findOneByText(getRoot(), "发送", exact = true, timeout = 2000)
             val sendButton = AccessibilityUtil.findAllByClazz(getRoot(), com.aipuls.tool.utils.Views.Button)
@@ -2940,7 +3157,7 @@ object WeworkOperationImpl {
                 log("发送消息: \n$content")
                 AccessibilityUtil.performClick(sendButton)
                 sleep(Constant.POP_WINDOW_INTERVAL)
-                WeworkLoopImpl.getChatMessageList(needInfer = false, titleList = titleList)
+//                WeworkLoopImpl.getChatMessageList(needInfer = false, titleList = titleList)
                 goHome()
                 return true
             } else {

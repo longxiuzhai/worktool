@@ -40,8 +40,8 @@ class WeworkService : AccessibilityService() {
         softKeyboardController.showMode = SHOW_MODE_HIDDEN
         WeworkController.weworkService = this
         WeworkController.enableLoopRunning = true
-        //初始化长连接
-        initWebSocket()
+//        //初始化长连接
+//        initWebSocket()
         //初始化消息处理器
         MyLooper.init()
         //初始化图片接收
@@ -59,6 +59,12 @@ class WeworkService : AccessibilityService() {
                 }
             }
         }, IntentFilter(Constant.WEWORK_NOTIFY))
+
+
+        sendBroadcast(Intent(Constant.WEWORK_NOTIFY).apply {
+            putExtra("type", "openWs")
+            putExtra("switch", true)
+        })
     }
 
     private fun initWebSocket() {

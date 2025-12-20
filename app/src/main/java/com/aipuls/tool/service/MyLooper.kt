@@ -15,6 +15,7 @@ import com.aipuls.tool.model.WeworkMessageBean
 import com.aipuls.tool.model.WeworkMessageListBean
 import com.aipuls.tool.utils.FloatWindowHelper
 import java.nio.charset.StandardCharsets
+import java.util.Arrays
 import java.util.LinkedHashSet
 import kotlin.concurrent.thread
 
@@ -45,7 +46,7 @@ object MyLooper {
                         } catch (e: Exception) {
                             LogUtils.e(e)
                             error("执行异常重试仍失败 ${e.message}")
-                            uploadCommandResult(msg.obj as WeworkMessageBean, ExecCallbackBean.ERROR_ILLEGAL_OPERATION, e.message ?: "", 0L)
+//                            uploadCommandResult(msg.obj as WeworkMessageBean, ExecCallbackBean.ERROR_ILLEGAL_OPERATION, e.message ?: "", 0L)
                         }
                     }
                 }
@@ -135,6 +136,9 @@ object MyLooper {
 
     private fun dealWithMessage(message: WeworkMessageBean) {
         when (message.type) {
+            WeworkMessageBean.LOOP_START_AUTO_TASK -> {
+                WeworkController.autoTask(message)
+            }
             WeworkMessageBean.TYPE_CONSOLE_TOAST -> {
                 WeworkController.consoleToast(message as ExecCallbackBean)
             }
@@ -173,81 +177,81 @@ object MyLooper {
             }
             WeworkMessageBean.PASS_ALL_FRIEND_REQUEST -> {
             }
-            WeworkMessageBean.ADD_FRIEND_BY_PHONE -> {
-                WeworkController.addFriendByPhone(message)
-            }
-            WeworkMessageBean.PUSH_FILE -> {
-                WeworkController.pushFile(message)
-            }
-            WeworkMessageBean.PUSH_LINK -> {
-                WeworkController.pushLink(message)
-            }
-            WeworkMessageBean.RECALL_MESSAGE -> {
-                WeworkController.recallMessage(message)
-            }
-            WeworkMessageBean.RELAY_MULTI_MESSAGE -> {
-                WeworkController.relayMultiMessage(message)
-            }
-            WeworkMessageBean.RELAY_MERGE_MESSAGE -> {
-                WeworkController.relayMergeMessage(message)
-            }
-            WeworkMessageBean.SEND_MULTI_MESSAGE -> {
-                WeworkController.sendMultiMessage(message)
-            }
-            WeworkMessageBean.SEND_MERGE_MESSAGE -> {
-                WeworkController.sendMergeMessage(message)
-            }
-            WeworkMessageBean.SCAN_QR_CODE -> {
-                WeworkController.scanQrCode(message)
-            }
-            WeworkMessageBean.DELETE_CONTACT -> {
-                WeworkController.deleteContact(message)
-            }
-            WeworkMessageBean.DISMISS_GROUP -> {
-                WeworkController.dismissGroup(message)
-            }
-            WeworkMessageBean.ADD_FRIEND_BY_GROUP -> {
-                WeworkController.addFriendByGroup(message)
-            }
-            WeworkMessageBean.MODIFY_GROUP_MEMBER_INFO -> {
-                WeworkController.modifyGroupMemberInfo(message)
-            }
-            WeworkMessageBean.ADD_NEED_DEAL -> {
-                WeworkController.addNeedDeal(message)
-            }
+//            WeworkMessageBean.ADD_FRIEND_BY_PHONE -> {
+//                WeworkController.addFriendByPhone(message)
+//            }
+//            WeworkMessageBean.PUSH_FILE -> {
+//                WeworkController.pushFile(message)
+//            }
+//            WeworkMessageBean.PUSH_LINK -> {
+//                WeworkController.pushLink(message)
+//            }
+//            WeworkMessageBean.RECALL_MESSAGE -> {
+//                WeworkController.recallMessage(message)
+//            }
+//            WeworkMessageBean.RELAY_MULTI_MESSAGE -> {
+//                WeworkController.relayMultiMessage(message)
+//            }
+//            WeworkMessageBean.RELAY_MERGE_MESSAGE -> {
+//                WeworkController.relayMergeMessage(message)
+//            }
+//            WeworkMessageBean.SEND_MULTI_MESSAGE -> {
+//                WeworkController.sendMultiMessage(message)
+//            }
+//            WeworkMessageBean.SEND_MERGE_MESSAGE -> {
+//                WeworkController.sendMergeMessage(message)
+//            }
+//            WeworkMessageBean.SCAN_QR_CODE -> {
+//                WeworkController.scanQrCode(message)
+//            }
+//            WeworkMessageBean.DELETE_CONTACT -> {
+//                WeworkController.deleteContact(message)
+//            }
+//            WeworkMessageBean.DISMISS_GROUP -> {
+//                WeworkController.dismissGroup(message)
+//            }
+//            WeworkMessageBean.ADD_FRIEND_BY_GROUP -> {
+//                WeworkController.addFriendByGroup(message)
+//            }
+//            WeworkMessageBean.MODIFY_GROUP_MEMBER_INFO -> {
+//                WeworkController.modifyGroupMemberInfo(message)
+//            }
+//            WeworkMessageBean.ADD_NEED_DEAL -> {
+//                WeworkController.addNeedDeal(message)
+//            }
             WeworkMessageBean.CLOCK_IN -> {
                 WeworkController.clockIn(message)
             }
-            WeworkMessageBean.SWITCH_CORP -> {
-                WeworkController.switchCorp(message)
-            }
-            WeworkMessageBean.SHOW_GROUP_INFO -> {
-                WeworkController.showGroupInfo(message)
-            }
-            WeworkMessageBean.GET_GROUP_INFO -> {
-                WeworkController.getGroupInfo(message)
-            }
-            WeworkMessageBean.GET_FRIEND_INFO -> {
-                WeworkController.getFriendInfo(message)
-            }
-            WeworkMessageBean.GET_MY_INFO -> {
-                WeworkController.getMyInfo(message)
-            }
-            WeworkMessageBean.GET_RECENT_LIST -> {
-                WeworkController.getRecentList(message)
-            }
-            WeworkMessageBean.GET_ALL_FRIEND_INFO -> {
-                WeworkController.getAllFriendInfo(message)
-            }
-            WeworkMessageBean.GET_ALL_GROUP_INFO -> {
-                WeworkController.getAllGroupInfo(message)
-            }
-            WeworkMessageBean.GET_LOCAL_FILE -> {
-                WeworkController.getLocalFile(message)
-            }
-            WeworkMessageBean.GET_CORP_LIST -> {
-                WeworkController.getCorpList(message)
-            }
+//            WeworkMessageBean.SWITCH_CORP -> {
+//                WeworkController.switchCorp(message)
+//            }
+//            WeworkMessageBean.SHOW_GROUP_INFO -> {
+//                WeworkController.showGroupInfo(message)
+//            }
+//            WeworkMessageBean.GET_GROUP_INFO -> {
+//                WeworkController.getGroupInfo(message)
+//            }
+//            WeworkMessageBean.GET_FRIEND_INFO -> {
+//                WeworkController.getFriendInfo(message)
+//            }
+//            WeworkMessageBean.GET_MY_INFO -> {
+//                WeworkController.getMyInfo(message)
+//            }
+//            WeworkMessageBean.GET_RECENT_LIST -> {
+//                WeworkController.getRecentList(message)
+//            }
+//            WeworkMessageBean.GET_ALL_FRIEND_INFO -> {
+//                WeworkController.getAllFriendInfo(message)
+//            }
+//            WeworkMessageBean.GET_ALL_GROUP_INFO -> {
+//                WeworkController.getAllGroupInfo(message)
+//            }
+//            WeworkMessageBean.GET_LOCAL_FILE -> {
+//                WeworkController.getLocalFile(message)
+//            }
+//            WeworkMessageBean.GET_CORP_LIST -> {
+//                WeworkController.getCorpList(message)
+//            }
             WeworkMessageBean.ROBOT_CONTROLLER_TEST -> {
                 WeworkController.test(message)
             }

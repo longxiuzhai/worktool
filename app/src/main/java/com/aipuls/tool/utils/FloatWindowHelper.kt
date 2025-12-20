@@ -25,6 +25,7 @@ import com.aipuls.tool.service.MyLooper
 import com.aipuls.tool.service.WeworkController
 import com.aipuls.tool.service.getRoot
 import com.aipuls.tool.service.*
+import com.aipuls.tool.service.MyLooper.getInstance
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -59,6 +60,15 @@ object FloatWindowHelper {
                 what = WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE
                 obj = WeworkMessageBean().apply { type = WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE }
             })
+//            MyLooper.getInstance().sendMessage(Message.obtain().apply {
+//                what = WeworkMessageBean.SEND_MESSAGE
+//                obj = WeworkMessageBean().apply {
+//                    type = WeworkMessageBean.SEND_MESSAGE
+////                    titleList = Arrays.asList("long")
+//                    titleList = Arrays.asList("Dicos-景栗magicflow部署沟通")
+//                    receivedContent = "你好~"
+//                }
+//            })
         } else {
             LogUtils.e("请先打开WorkTool主功能~")
         }

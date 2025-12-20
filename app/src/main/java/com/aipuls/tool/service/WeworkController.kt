@@ -17,6 +17,18 @@ object WeworkController {
     var mainLoopRunning = false
 
     /**
+     * 自动任务
+     *
+     * @see WeworkMessageBean.LOOP_START_AUTO_TASK
+     */
+    fun autoTask(message: WeworkMessageBean) : Boolean{
+        LogUtils.d("REQUEST autoTask() ")
+        return WeworkOperationImpl.autoTask(
+            message
+        )
+    }
+
+    /**
      * 交互通知
      * @see WeworkMessageBean.TYPE_CONSOLE_TOAST
      * @param message#errorCode 失败错误码

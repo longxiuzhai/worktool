@@ -35,35 +35,37 @@ object WeworkLoopImpl {
         mainLoopRunning = true
         try {
             while (mainLoopRunning) {
-                if (!isAtHome()) {
-                    LogUtils.d("当前在房间: ")
-                    getChatMessageList()
-                    if (mainLoopRunning) {
-                        goHome()
-                    }
-                    continue
-                }
+//                if (!isAtHome()) {
+//                    LogUtils.d("当前在房间: ")
+//                    getChatMessageList()
+//                    if (mainLoopRunning) {
+//                        goHome()
+//                    }
+//                    continue
+//                }
+//                if (!mainLoopRunning) break
+//                if (getChatroomList()) {
+//                    LogUtils.d("点击进入聊天页: ")
+//                    AccessibilityUtil.waitForPageMissing("WwMainActivity", "GlobalSearchActivity")
+//                    if (!getChatMessageList()) {
+//                        sleep(Constant.POP_WINDOW_INTERVAL)
+//                        LogUtils.d("重试获取聊天列表: ")
+//                        getChatMessageList()
+//                    }
+//                }
+//                if (!mainLoopRunning) break
+//                getFriendRequest()
                 if (!mainLoopRunning) break
-                if (getChatroomList()) {
-                    LogUtils.d("点击进入聊天页: ")
-                    AccessibilityUtil.waitForPageMissing("WwMainActivity", "GlobalSearchActivity")
-                    if (!getChatMessageList()) {
-                        sleep(Constant.POP_WINDOW_INTERVAL)
-                        LogUtils.d("重试获取聊天列表: ")
-                        getChatMessageList()
-                    }
-                }
-                if (!mainLoopRunning) break
-                getFriendRequest()
+                autoTask( WeworkMessageBean().apply{})
                 if (!mainLoopRunning) break
                 checkRealName()
                 if (!mainLoopRunning) break
-                sleep(300)
+                sleep(30000)
             }
         } catch (e: Exception) {
             LogUtils.e("ERROR mainLoop: " + e.message, e)
             error("ERROR mainLoop: $e")
-            sleep(Constant.LONG_INTERVAL)
+            sleep(Constant.LONG_INTERVAL*10)
             MyLooper.getInstance().removeMessages(WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE)
             MyLooper.getInstance().sendMessage(Message.obtain().apply {
                 what = WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE
@@ -71,7 +73,214 @@ object WeworkLoopImpl {
             })
         }
     }
+    private fun autoTask(
+        message: WeworkMessageBean
+    ): Boolean {
+        // 进工作台
+        goHomeTab("工作台")
+        // 进应用
+        val node = AccessibilityUtil.scrollAndFindByText(WeworkController.weworkService, getRoot(), "MagicFlow-UAT", exact = true)
+        if (node != null) {
+            AccessibilityUtil.performClick(node)
+            var retry = 5
+            while (retry-- > 0) {
+                sleep(Constant.CHANGE_PAGE_INTERVAL)
+                // 可以找到运营工具
+                val nodeInfo = AccessibilityUtil.findOneByText(
+                    getRoot(),
+                    "运营工具",
+                    exact = true,
+                    timeout = 2000
+                )
+                if(null != nodeInfo){
+                    break;
+                }
+            }
+        } else{
+            LogUtils.e("工作台-MagicFlow-UAT未找到")
+            return false
+        }
 
+        val sendButton1 = AccessibilityUtil.findAllByClazz( getRoot(), com.aipuls.tool.utils.Views.TextView).firstOrNull { it.text?.toString() == "运营工具" }
+        if (sendButton1 != null) {
+            AccessibilityUtil.performClick(sendButton1)
+            var retry = 5
+            while (retry-- > 0) {
+                sleep(Constant.CHANGE_PAGE_INTERVAL)
+                val nodeInfo = AccessibilityUtil.findOneByText(
+                    getRoot(),
+                    "自动任务",
+                    exact = true,
+                    timeout = 2000
+                )
+                if(null != nodeInfo){
+                    break;
+                }
+            }
+        } else{
+            LogUtils.e("工作台-MagicFlow-UAT-运营工具 未找到")
+            return false
+        }
+
+        val sendButton2 = AccessibilityUtil.findAllByClazz( getRoot(), com.aipuls.tool.utils.Views.TextView).firstOrNull { it.text?.toString() == "自动任务" }
+        if (sendButton2 != null) {
+            AccessibilityUtil.performClick(sendButton2)
+            var retry = 5
+            while (retry-- > 0) {
+                sleep(Constant.CHANGE_PAGE_INTERVAL)
+                val nodeInfo = AccessibilityUtil.findOneByText(getRoot(), " 开始任务", exact = true, timeout = 2000)
+                if(null != nodeInfo){
+                    break;
+                }
+            }
+        } else {
+            LogUtils.e("工作台-MagicFlow-UAT-运营工具-自动任务 未找到")
+            return false
+        }
+
+        val sendButton31 = AccessibilityUtil.findAllByClazz( getRoot(), com.aipuls.tool.utils.Views.TextView).firstOrNull {
+            (it.text != null && it.text.toString().startsWith("找到有任务的群ID："))
+        }
+        var groupId = ""
+        if (sendButton31 != null) {
+            groupId = sendButton31.text.toString().replace("找到有任务的群ID：", "");
+            LogUtils.i("工作台-MagicFlow-UAT-运营工具-自动任务 找到有任务的群ID：${groupId}")
+        } else {
+            LogUtils.i("工作台-MagicFlow-UAT-运营工具-自动任务 没有任务")
+            return false
+        }
+
+        AccessibilityUtil.findOneByText(getRoot(), " 开始任务", exact = true, timeout = 2000)
+        val sendButton3 = AccessibilityUtil.findAllByClazz( getRoot(), com.aipuls.tool.utils.Views.Button).firstOrNull { it.text?.toString() == " 开始任务" }
+        if (sendButton3 != null) {
+            //进入群聊
+            AccessibilityUtil.performClick(sendButton3)
+            var retry = 5
+            while (retry-- > 0) {
+                sleep(Constant.CHANGE_PAGE_INTERVAL * 2)
+                // 侧边栏
+                val nodeInfo = AccessibilityUtil.findOneByText(getRoot(), "测动任务", exact = true, timeout = 2000)
+                if(null != nodeInfo){
+                    break;
+                }
+            }
+        } else {
+            LogUtils.e("工作台-MagicFlow-UAT-运营工具-自动任务-开始任务 未找到")
+            return false
+        }
+        var groupSize = 500
+        do {
+            //群聊会话中， 操作侧边栏
+            AccessibilityUtil.findOneByText(getRoot(), "测动任务", exact = true, timeout = 2000)
+            val sendButton11 =
+                AccessibilityUtil.findAllByClazz(getRoot(), com.aipuls.tool.utils.Views.TextView)
+                    .firstOrNull { it.text?.toString() == "测动任务" }
+            if (sendButton11 != null) {
+                AccessibilityUtil.performClick(sendButton11)
+                var retry = 5
+                while (retry-- > 0) {
+                    sleep(Constant.CHANGE_PAGE_INTERVAL * 3)
+                    val nodeInfo = AccessibilityUtil.findOneByText( getRoot(), "待发送", exact = true, timeout = 2000)
+                    if (null != nodeInfo) {
+                        break;
+                    }
+                }
+            } else {
+                LogUtils.e("自动任务（工具栏） 未找到")
+                return false
+            }
+
+            AccessibilityUtil.findOneByText(getRoot(), "待发送", exact = true, timeout = 2000)
+            val sendButton12 = AccessibilityUtil.findAllByClazz(getRoot(), com.aipuls.tool.utils.Views.TextView)
+                    .firstOrNull { it.text?.toString() == "待发送" }
+            if (sendButton12 != null) {
+            } else {
+                LogUtils.e("自动任务（工具栏） 未找到“待发送”的记录")
+                return false
+            }
+
+//            AccessibilityUtil.findOneByText(getRoot(), "一键发送", exact = true, timeout = 2000)
+            val sendButton13 = AccessibilityUtil.findAllByClazz(
+                getRoot(),
+                com.aipuls.tool.utils.Views.Button
+            ).firstOrNull { it.text?.toString() == "一键发送" }
+
+            if (sendButton13 != null) {
+                AccessibilityUtil.performClick(sendButton13)
+                var retry = 5
+                while (retry-- > 0) {
+                    sleep(Constant.CHANGE_PAGE_INTERVAL * 1)
+                    val nodeInfo = AccessibilityUtil.findOneByText( getRoot(), "发送", exact = true, timeout = 2000)
+                    if (null != nodeInfo) {
+                        break;
+                    }
+                }
+            } else {
+                LogUtils.e("自动任务（工具栏）-一键发送 未找到")
+                return false
+            }
+            var maxItemSize = 9;
+            do {
+                val root = getRoot()
+                val sendButton21 = AccessibilityUtil.findAllByClazz(
+                    root,
+                    com.aipuls.tool.utils.Views.TextView
+                ).firstOrNull { it.text?.toString() == "发送" }
+
+                if (sendButton21 != null) {
+                    AccessibilityUtil.performClick(sendButton21)
+                    var retry = 3
+                    while (retry-- > 0) {
+                        sleep(Constant.POP_WINDOW_INTERVAL * 2)
+                        val nodeInfo = AccessibilityUtil.findOneByText(
+                            root,
+                            "发送",
+                            exact = true,
+                            timeout = 2000
+                        )
+                        if (null != nodeInfo) {
+                            // 还有发送项，继续
+                            maxItemSize --
+                        }
+                    }
+                } else {
+                    LogUtils.e("自动任务（工具栏）-一键发送-发送 未找到")
+                    maxItemSize = 0;
+                }
+            } while (maxItemSize > 0)
+
+            // 下一个群
+            //AccessibilityUtil.findOneByText(getRoot(), "下一个客户群", exact = true, timeout = 2000)
+            val sendButton22 = AccessibilityUtil.findAllByClazz(
+                getRoot(),
+                com.aipuls.tool.utils.Views.Button
+            ).firstOrNull { it.text?.toString() == "下一个客户群" }
+
+            if (sendButton22 != null) {
+                AccessibilityUtil.performClick(sendButton22)
+                var retry = 5
+                while (retry-- > 0) {
+                    sleep(Constant.CHANGE_PAGE_INTERVAL * 2)
+                    val nodeInfo = AccessibilityUtil.findOneByText( getRoot(), "测动任务", exact = true, timeout = 2000)
+                    if (null != nodeInfo) {
+                        break
+                    }
+                }
+                val nodeInfo = AccessibilityUtil.findOneByText( getRoot(), "测动任务", exact = true, timeout = 2000)
+                if (null != nodeInfo) {
+                    // 继续下一个群，处理
+                } else {
+                    LogUtils.e("自动任务（工具栏）-下一个客户群 未找到,应该是完成了所有任务")
+                    break
+                }
+            } else {
+                LogUtils.e("自动任务（工具栏）-下一个客户群 未找到")
+                return false
+            }
+        } while (groupSize-- > 0)
+
+        return true;
+    }
     /**
      * 检查账号是否已实名 & 新号使用模拟环境
      * @return 通过检查 true 否则 false

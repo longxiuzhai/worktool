@@ -68,6 +68,8 @@ public class WeworkMessageBean {
 
     public static final int STOP_AND_GO_HOME = 201;
     public static final int LOOP_RECEIVE_NEW_MESSAGE = 202;
+
+    public static final int LOOP_START_AUTO_TASK = 2030;
     public static final int SEND_MESSAGE = 203;
     public static final int REPLY_MESSAGE = 204;
     public static final int RELAY_MESSAGE = 205;
