@@ -85,14 +85,14 @@ class ListenActivity : AppCompatActivity() {
             HttpUtil.getMyConfig(toast = false)
             MobclickAgent.onProfileSignIn(channel)
         }
-        tv_host.text = Constant.host
-        tv_host.setOnClickListener {
-            showSelectHostDialog()
-        }
-        tv_host.setOnLongClickListener {
-            showInputHostDialog()
-            true
-        }
+//        tv_host.text = Constant.host
+//        tv_host.setOnClickListener {
+//            showSelectHostDialog()
+//        }
+//        tv_host.setOnLongClickListener {
+//            showInputHostDialog()
+//            true
+//        }
         val version = "${AppUtils.getAppVersionName()}     Android ${DeviceUtils.getSDKVersionName()} ${DeviceUtils.getManufacturer()} ${DeviceUtils.getModel()}"
         val deviceRooted = com.aipuls.tool.utils.envcheck.CheckRoot.isDeviceRooted()
         val hook = com.aipuls.tool.utils.envcheck.CheckHook.isHook(applicationContext)
@@ -134,7 +134,7 @@ class ListenActivity : AppCompatActivity() {
             if (isChecked) {
                 if (Constant.robotId.isBlank()) {
                     sw_accessibility.isChecked = false
-                    ToastUtils.showLong("请先填写并保存链接号~")
+                    ToastUtils.showLong("请先填写并保存成员账号~")
                 } else if (!PermissionHelper.isAccessibilitySettingOn()) {
                     if (SPUtils.getInstance().getBoolean("risk", false)) {
                         if (riskRetry > 10) {
@@ -208,67 +208,67 @@ class ListenActivity : AppCompatActivity() {
             }, 1000)
         }
     }
-
-    private fun showSelectHostDialog() {
-        val hostList = SPUtils.getInstance().getStringSet("host_list", mutableSetOf(Constant.host))
-        if (hostList.isNotEmpty()) {
-            val hostArray = hostList.toTypedArray()
-            QMUIDialog.CheckableDialogBuilder(this)
-                .setTitle(getString(R.string.host_list))
-                .addItems(hostArray) { dialog, which ->
-                    Constant.host = hostArray[which]
-                    tv_host.text = hostArray[which]
-                    HostTestHelper.testWs()
-                    dialog.dismiss()
-                }
-                .setCheckedIndex(hostList.indexOf(Constant.host))
-                .create(R.style.QMUI_Dialog)
-                .show()
-        }
-    }
-
-    private fun showInputHostDialog() {
-        ToastUtils.showLong("请输入专线网络")
-        val builder = QMUIDialog.EditTextDialogBuilder(this)
-        builder.setTitle(getString(R.string.tip))
-            .setPlaceholder(getString(R.string.input_new_host))
-            .setDefaultText(tv_host.text)
-            .setInputType(InputType.TYPE_CLASS_TEXT)
-            .addAction(getString(R.string.delete)) { dialog, index ->
-                val hostList = SPUtils.getInstance().getStringSet("host_list", mutableSetOf(Constant.host))
-                if (hostList.size > 1) {
-                    hostList.remove(Constant.host)
-                    Constant.host = hostList.elementAt(0)
-                    tv_host.text = Constant.host
-                    HostTestHelper.testWs()
-                    SPUtils.getInstance().put("host_list", hostList)
-                    dialog.dismiss()
-                } else {
-                    ToastUtils.showLong("至少保留一个host！")
-                }
-            }
-            .addAction(getString(R.string.cancel)) { dialog, index -> dialog.dismiss() }
-            .addAction(getString(R.string.add)) { dialog, index ->
-                val text = builder.editText.text
-                if (text != null && text.isNotEmpty()) {
-                    if (text.matches("ws{1,2}://[^/]+.*".toRegex())) {
-                        val hostList = SPUtils.getInstance().getStringSet("host_list", mutableSetOf(
-                            Constant.host))
-                        hostList.add(text.toString())
-                        SPUtils.getInstance().put("host_list", hostList)
-                        Constant.host = text.toString()
-                        tv_host.text = text
-                        HostTestHelper.testWs()
-                        dialog.dismiss()
-                    } else {
-                        ToastUtils.showLong("格式异常！")
-                    }
-                } else {
-                    ToastUtils.showLong("请勿为空！")
-                }
-            }
-            .create(R.style.QMUI_Dialog).show()
-    }
+//
+//    private fun showSelectHostDialog() {
+//        val hostList = SPUtils.getInstance().getStringSet("host_list", mutableSetOf(Constant.host))
+//        if (hostList.isNotEmpty()) {
+//            val hostArray = hostList.toTypedArray()
+//            QMUIDialog.CheckableDialogBuilder(this)
+//                .setTitle(getString(R.string.host_list))
+//                .addItems(hostArray) { dialog, which ->
+//                    Constant.host = hostArray[which]
+//                    tv_host.text = hostArray[which]
+//                    HostTestHelper.testWs()
+//                    dialog.dismiss()
+//                }
+//                .setCheckedIndex(hostList.indexOf(Constant.host))
+//                .create(R.style.QMUI_Dialog)
+//                .show()
+//        }
+//    }
+//
+//    private fun showInputHostDialog() {
+//        ToastUtils.showLong("请输入专线网络")
+//        val builder = QMUIDialog.EditTextDialogBuilder(this)
+//        builder.setTitle(getString(R.string.tip))
+//            .setPlaceholder(getString(R.string.input_new_host))
+//            .setDefaultText(tv_host.text)
+//            .setInputType(InputType.TYPE_CLASS_TEXT)
+//            .addAction(getString(R.string.delete)) { dialog, index ->
+//                val hostList = SPUtils.getInstance().getStringSet("host_list", mutableSetOf(Constant.host))
+//                if (hostList.size > 1) {
+//                    hostList.remove(Constant.host)
+//                    Constant.host = hostList.elementAt(0)
+//                    tv_host.text = Constant.host
+//                    HostTestHelper.testWs()
+//                    SPUtils.getInstance().put("host_list", hostList)
+//                    dialog.dismiss()
+//                } else {
+//                    ToastUtils.showLong("至少保留一个host！")
+//                }
+//            }
+//            .addAction(getString(R.string.cancel)) { dialog, index -> dialog.dismiss() }
+//            .addAction(getString(R.string.add)) { dialog, index ->
+//                val text = builder.editText.text
+//                if (text != null && text.isNotEmpty()) {
+//                    if (text.matches("ws{1,2}://[^/]+.*".toRegex())) {
+//                        val hostList = SPUtils.getInstance().getStringSet("host_list", mutableSetOf(
+//                            Constant.host))
+//                        hostList.add(text.toString())
+//                        SPUtils.getInstance().put("host_list", hostList)
+//                        Constant.host = text.toString()
+//                        tv_host.text = text
+//                        HostTestHelper.testWs()
+//                        dialog.dismiss()
+//                    } else {
+//                        ToastUtils.showLong("格式异常！")
+//                    }
+//                } else {
+//                    ToastUtils.showLong("请勿为空！")
+//                }
+//            }
+//            .create(R.style.QMUI_Dialog).show()
+//    }
 
     private var needToWork = false
 

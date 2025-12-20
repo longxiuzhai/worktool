@@ -14,7 +14,7 @@ object Constant {
     var LONG_INTERVAL = BASE_LONG_INTERVAL
     var CHANGE_PAGE_INTERVAL = BASE_CHANGE_PAGE_INTERVAL
     var POP_WINDOW_INTERVAL = BASE_POP_WINDOW_INTERVAL
-    private const val DEFAULT_HOST = "wss://api.worktool.ymdyes.cn"
+    private const val DEFAULT_HOST = "wss://api.aipuls.com"
 
     var version = Int.MAX_VALUE
     var myName = ""
@@ -129,7 +129,7 @@ object Constant {
 
     fun getCheckUpdateUrl() = "${getBaseUrl()}/appUpdate/checkUpdate"
 
-    fun getMasterCheckUpdateUrl() = "https://worktool.asrtts.cn/appUpdate/checkUpdate"
+    fun getMasterCheckUpdateUrl() = "https://worktool.aipuls.com/appUpdate/checkUpdate"
 
     fun getMyConfig() = "${getBaseUrl()}/robot/robotInfo/get?robotId=$robotId"
 

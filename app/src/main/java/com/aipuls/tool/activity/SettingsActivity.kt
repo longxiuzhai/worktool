@@ -55,24 +55,24 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun initView() {
         iv_back_left.setOnClickListener { finish() }
-        sw_encrypt.isChecked = Constant.encryptType == 1
-        sw_encrypt.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-            LogUtils.i("sw_encrypt onCheckedChanged: $isChecked")
-            Constant.encryptType = if (isChecked) 1 else 0
-            SPUtils.getInstance().put("encryptType", Constant.encryptType)
-        })
-        sw_receive.isChecked = Constant.autoReply == 1
-        sw_receive.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-            LogUtils.i("sw_receive onCheckedChanged: $isChecked")
-            Constant.autoReply = if (isChecked) 1 else 0
-            SPUtils.getInstance().put("autoReply", Constant.autoReply)
-        })
-        rl_reply_strategy.setOnClickListener { showReplyStrategyDialog() }
+//        sw_encrypt.isChecked = Constant.encryptType == 1
+//        sw_encrypt.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+//            LogUtils.i("sw_encrypt onCheckedChanged: $isChecked")
+//            Constant.encryptType = if (isChecked) 1 else 0
+//            SPUtils.getInstance().put("encryptType", Constant.encryptType)
+//        })
+//        sw_receive.isChecked = Constant.autoReply == 1
+//        sw_receive.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+//            LogUtils.i("sw_receive onCheckedChanged: $isChecked")
+//            Constant.autoReply = if (isChecked) 1 else 0
+//            SPUtils.getInstance().put("autoReply", Constant.autoReply)
+//        })
+//        rl_reply_strategy.setOnClickListener { showReplyStrategyDialog() }
         rl_log.setOnClickListener { showLogDialog() }
-        rl_update.setOnClickListener { showUpdateDialog() }
-        rl_donate.setOnClickListener { showDonateDialog() }
-        rl_share.setOnClickListener { showShareDialog() }
-        rl_advance.setOnClickListener { SettingsAdvanceActivity.enterActivity(this) }
+//        rl_update.setOnClickListener { showUpdateDialog() }
+//        rl_donate.setOnClickListener { showDonateDialog() }
+//        rl_share.setOnClickListener { showShareDialog() }
+//        rl_advance.setOnClickListener { SettingsAdvanceActivity.enterActivity(this) }
         freshOpenFlow()
         bt_open_flow.setOnClickListener {
             freshOpenFlow()
@@ -100,7 +100,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
             } else {
                 if (Constant.robotId.isBlank()) {
-                    ToastUtils.showLong("请先填写并保存链接号~")
+                    ToastUtils.showLong("请先填写并保存成员账号~")
                 } else if (!PermissionHelper.isAccessibilitySettingOn()) {
                     startActivity(Intent(this, AccessibilityGuideActivity::class.java))
                 }
@@ -175,7 +175,7 @@ class SettingsActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(Intent().apply {
             action = Intent.ACTION_SEND
             type = ShareUtil.TEXT
-            putExtra(Intent.EXTRA_TEXT, "我发现一个非常好用的企业微信机器人程序，文档地址: https://worktool.apifox.cn/ APP下载地址是: https://cdn.asrtts.cn/uploads/worktool/apk/worktool-latest.apk")
+            putExtra(Intent.EXTRA_TEXT, "我发现一个非常好用的企业微信程序，心智无障碍助手")
         }, "分享"))
     }
 

@@ -50,7 +50,7 @@ public class ShareCommentsUtil {
             File pic = new File(dir, "bigbang.jpg");
             pic.deleteOnExit();
             BitmapDrawable bitmapDrawable;
-            bitmapDrawable = (BitmapDrawable) context.getDrawable(R.mipmap.ic_launcher);
+            bitmapDrawable = (BitmapDrawable) context.getDrawable(R.mipmap.wu);
             try {
                 bitmapDrawable.getBitmap().compress(Bitmap.CompressFormat.JPEG, 75, new FileOutputStream(pic));
             } catch (FileNotFoundException e) {

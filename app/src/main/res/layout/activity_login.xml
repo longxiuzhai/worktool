@@ -73,7 +73,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp"
         android:gravity="center"
-        android:text="WorkTool 极致的自动化体验"
+        android:text="心智助手 极致的自动化体验"
         android:textColor="#9affffff"
         android:textSize="10sp"
         tools:ignore="SmallSp" />

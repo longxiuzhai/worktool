@@ -49,7 +49,7 @@ class WeworkService : AccessibilityService() {
         //开发者可以在这里添加测试代码 启动时调用一次
         thread { Demo.test(AppUtils.isAppDebug()) }
 
-        //监听是否修改链接号并重新长连接
+        //监听是否修改成员账号并重新长连接
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 if (intent.getStringExtra("type") == "modify_channel") {

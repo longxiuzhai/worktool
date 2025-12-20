@@ -23,10 +23,10 @@ class MyApplication : Application() {
 
         var iwwapi: IWWAPI? = null
         /**
-         * 回到WorkTool首页 需要先授权显示悬浮窗
+         * 回到心智助手首页 需要先授权显示悬浮窗
          */
         fun launchIntent() {
-            LogUtils.e("进入WorkTool APP~")
+            LogUtils.e("进入心智助手 APP~")
             val app = Utils.getApp()
             app.packageManager.getLaunchIntentForPackage(PackageUtil.getPackageName(app))?.apply {
                 this.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -45,14 +45,14 @@ class MyApplication : Application() {
         //初始化 Toast 框架
         ToastUtils.init(this)
         //初始化友盟统计
-//        val key = "6284a3a3d024421570f97c3c"
-//        val channel = "main_channel"
-//        UMConfigure.preInit(this, key, channel)
-//        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-//        if (SPUtils.getInstance().getString("uminit", "1") == "1") {
-//            UMConfigure.init(this, key, channel, UMConfigure.DEVICE_TYPE_PHONE, "")
-//        }
-//        TalkingDataSDK.init(this, "80E9C84E39904DAFB28562910FF7C86C", getString(R.string.app_name) + "_master",
+        val key = "6946a8538560e348720b6167"
+        val channel = "main_channel"
+        UMConfigure.preInit(this, key, channel)
+        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
+        if (SPUtils.getInstance().getString("uminit", "1") == "1") {
+            UMConfigure.init(this, key, channel, UMConfigure.DEVICE_TYPE_PHONE, "")
+        }
+//        TalkingDataSDK.init(this, "Your_app_id", "master",
 //            Constant.robotId
 //        )
         //初始化企业微信sdk

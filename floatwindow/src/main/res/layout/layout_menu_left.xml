@@ -48,7 +48,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="55dp"
-                android:src="@mipmap/ic_launcher_round" />
+                android:src="@mipmap/wu_round" />
 
             <ImageView
                 android:id="@+id/iv_settings_left"
@@ -76,7 +76,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="2dp"
-                android:src="@mipmap/ic_launcher_round" />
+                android:src="@mipmap/wu_round" />
 
             <ImageView
                 android:id="@+id/iv_resume_pause_left"

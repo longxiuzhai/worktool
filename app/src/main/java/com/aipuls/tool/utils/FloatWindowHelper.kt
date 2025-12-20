@@ -70,7 +70,7 @@ object FloatWindowHelper {
 //                }
 //            })
         } else {
-            LogUtils.e("请先打开WorkTool主功能~")
+            LogUtils.e("请先打开心智助手主功能~")
         }
     }
 
@@ -86,7 +86,7 @@ object FloatWindowHelper {
             isPause = true
             WeworkController.mainLoopRunning = false
         } else {
-            LogUtils.e("请先打开WorkTool主功能~")
+            LogUtils.e("请先打开心智助手主功能~")
         }
     }
 
@@ -100,7 +100,7 @@ object FloatWindowHelper {
                         1 -> {
                             if (PermissionHelper.isAccessibilitySettingOn()) {
                                 if (!isPause) {
-                                    ToastUtils.showShort("请先暂停WorkTool主功能~")
+                                    ToastUtils.showShort("请先暂停心智助手主功能~")
                                     return
                                 }
                                 thread {
@@ -123,7 +123,7 @@ object FloatWindowHelper {
                                     ShareUtil.share("*/*", newFile)
                                 }
                             } else {
-                                ToastUtils.showShort("请先打开WorkTool主功能~")
+                                ToastUtils.showShort("请先打开心智助手主功能~")
                             }
                         }
                         2 -> {
@@ -136,7 +136,7 @@ object FloatWindowHelper {
                                     accessibilityServicePause()
                                 }
                             } else {
-                                ToastUtils.showShort("请先打开WorkTool主功能~")
+                                ToastUtils.showShort("请先打开心智助手主功能~")
                             }
                         }
                         3 -> {

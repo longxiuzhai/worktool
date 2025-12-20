@@ -56,7 +56,7 @@ object IWWAPIUtil {
 
         LogUtils.d("小程序: ${miniProgram.appId} ${miniProgram.agentId} ${miniProgram.username} ${miniProgram.title}")
         log("小程序: ${miniProgram.appId} ${miniProgram.agentId} ${miniProgram.username} ${miniProgram.title}")
-        val bitmap = (Utils.getApp().getDrawable(R.mipmap.ic_launcher) as BitmapDrawable).bitmap
+        val bitmap = (Utils.getApp().getDrawable(R.mipmap.wu) as BitmapDrawable).bitmap
         val stream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 75, stream)
         miniProgram.hdImageData = stream.toByteArray()

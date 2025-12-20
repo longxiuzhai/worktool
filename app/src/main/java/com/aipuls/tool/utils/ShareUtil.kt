@@ -70,7 +70,7 @@ object ShareUtil {
             putExtra(Intent.EXTRA_STREAM, fileURI)
         }
         intent.setPackage(Constant.PACKAGE_NAMES)
-        app.startActivity(Intent.createChooser(intent, "WorkTool文件分享").apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK })
+        app.startActivity(Intent.createChooser(intent, "心智助手文件分享").apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK })
         LogUtils.e("分享了 $type ${file.absolutePath}")
         return true
     }

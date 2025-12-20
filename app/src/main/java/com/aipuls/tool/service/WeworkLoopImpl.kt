@@ -287,8 +287,8 @@ object WeworkLoopImpl {
      */
     private fun checkRealName(): Boolean {
         if (!SPUtils.getInstance("myInfo").getBoolean("realName", true)) {
-            LogUtils.e("账号实名前请先关闭WorkTool主功能！")
-            ToastUtils.show("账号实名前请先关闭WorkTool主功能！")
+            LogUtils.e("账号实名前请先关闭心智助手主功能！")
+            ToastUtils.show("账号实名前请先关闭心智助手主功能！")
             MyApplication.launchIntent()
             sleep(5000)
             return false
@@ -626,7 +626,7 @@ object WeworkLoopImpl {
                 LogUtils.d("好友请求: " + tvNick.text)
                 //设置标签
                 if (AccessibilityUtil.findTextAndClick(getRoot(), "标签")) {
-                    WeworkOperationImpl.setFriendTags(arrayListOf("worktool自动通过"))
+                    WeworkOperationImpl.setFriendTags(arrayListOf("心智助手自动通过"))
                 }
                 AccessibilityUtil.findTextAndClick(getRoot(), "通过验证")
                 var textNode = AccessibilityUtil.findOneByText(getRoot(), "完成", "发消息", "添加请求已过期，添加失败", exact = true)

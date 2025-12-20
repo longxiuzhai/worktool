@@ -70,10 +70,10 @@ fun goHomeTab(title: String): Boolean {
                 return false
             } else {
                 backPress()
-                //如果在登录页面就提示关闭worktool主功能
+                //如果在登录页面就提示关闭心智助手主功能
                 if (AccessibilityUtil.findOnceByText(getRoot(), "手机号登录", exact = true) != null) {
-                    LogUtils.e("登录前请先关闭WorkTool主功能！")
-                    ToastUtils.show("登录前请先关闭WorkTool主功能！")
+                    LogUtils.e("登录前请先关闭心智助手主功能！")
+                    ToastUtils.show("登录前请先关闭心智助手主功能！")
                     WeworkController.weworkService.disableSelf()
 //                    WeworkController.weworkService.webSocketManager.close(1000, "wework logout")
                     MyApplication.launchIntent()

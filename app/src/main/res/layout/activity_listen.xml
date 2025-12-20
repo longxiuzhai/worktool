@@ -83,7 +83,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="1.申请链接号后在下方填写并点击保存"
+                        android:text="1.申请成员账号后在下方填写并点击保存"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/setting_start_font_size" />
 
@@ -91,7 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/setting_vertical_padding"
-                        android:text="2.开启主功能在无障碍栏目里找到WorkTool并开启"
+                        android:text="2.开启主功能在无障碍栏目里找到心智助手并开启"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/setting_start_font_size" />
 
@@ -119,39 +119,39 @@
                 android:textSize="@dimen/setting_end_font_size"
                 android:textStyle="bold" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/setting_start_padding"
-                android:paddingTop="@dimen/setting_vertical_padding"
-                android:paddingEnd="@dimen/setting_end_padding"
-                android:paddingBottom="@dimen/setting_vertical_padding">
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingStart="@dimen/setting_start_padding"-->
+<!--                android:paddingTop="@dimen/setting_vertical_padding"-->
+<!--                android:paddingEnd="@dimen/setting_end_padding"-->
+<!--                android:paddingBottom="@dimen/setting_vertical_padding">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/setting_start_padding"
-                    android:layout_marginEnd="@dimen/setting_end_padding"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_marginStart="@dimen/setting_start_padding"-->
+<!--                    android:layout_marginEnd="@dimen/setting_end_padding"-->
+<!--                    android:orientation="vertical">-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="当前运行host"
-                        android:textColor="@color/color_333333"
-                        android:textSize="@dimen/setting_start_font_size" />
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="当前运行host"-->
+<!--                        android:textColor="@color/color_333333"-->
+<!--                        android:textSize="@dimen/setting_start_font_size" />-->
 
-                    <TextView
-                        android:id="@+id/tv_host"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="127.0.0.1"
-                        android:textColor="@color/color_999999"
-                        android:textSize="@dimen/setting_end_font_size" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_host"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="127.0.0.1"-->
+<!--                        android:textColor="@color/color_999999"-->
+<!--                        android:textSize="@dimen/setting_end_font_size" />-->
 
-                </LinearLayout>
-            </RelativeLayout>
+<!--                </LinearLayout>-->
+<!--            </RelativeLayout>-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -322,7 +322,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="链接号"
+                        android:text="成员账号"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/setting_start_font_size" />
 

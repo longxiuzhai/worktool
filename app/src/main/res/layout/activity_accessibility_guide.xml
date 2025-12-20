@@ -23,7 +23,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
-        android:text="请开启无障碍服务，以使用WorkTool主功能"
+        android:text="请开启无障碍服务，以使用心智助手主功能"
         android:textColor="@color/color_333333"
         android:textSize="14sp" />
 
@@ -49,7 +49,7 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="18dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/wu" />
 
                 <TextView
                     android:id="@+id/tv_guide_icon"
@@ -123,7 +123,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="10dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@mipmap/wu"
                         />
 
                     <TextView
@@ -150,7 +150,7 @@
                         android:layout_gravity="center_vertical"
                         android:textSize="17sp"
                         android:textColor="@color/qmui_config_color_black"
-                        android:text="使用WorkTool"
+                        android:text="使用心智助手"
                         />
 
                     <ImageView

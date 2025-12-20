@@ -75,7 +75,7 @@ class PlayNotifyService : Service() {
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(false)
                 .setOngoing(true)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.wu)
                 .setOngoing(true)
         notification = notificationBuilder.build()
         startForeground(PLAY_NOTIFY_ID, notification)
