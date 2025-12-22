@@ -9,8 +9,8 @@ android {
         applicationId "com.aipuls.tool"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 28011
-        versionName "2.8.1"
+        versionCode 251201
+        versionName "1.0.1"
     }
 
     signingConfigs {
