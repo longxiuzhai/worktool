@@ -76,63 +76,63 @@ object MyLooper {
         }
     }
 
-    fun onMessage(webSocket: WebSocket?, text: String) {
-        val messageList: WeworkMessageListBean<WeworkMessageBean> =
-            GsonUtils.fromJson<WeworkMessageListBean<WeworkMessageBean>>(text, object : TypeToken<WeworkMessageListBean<ExecCallbackBean>>(){}.type)
-        if (messageList.socketType == WeworkMessageListBean.SOCKET_TYPE_HEARTBEAT) {
-            return
-        }
-        if (messageList.socketType == WeworkMessageListBean.SOCKET_TYPE_MESSAGE_CONFIRM) {
-            return
-        }
-        if (messageList.socketType == WeworkMessageListBean.SOCKET_TYPE_MESSAGE_LIST) {
-            val confirm = WeworkController.weworkService.webSocketManager.confirm(messageList.messageId)
-            if (!confirm) return
-            if (messageList.encryptType == 1) {
-                val decryptHexStringAES = EncryptUtils.decryptHexStringAES(
-                    messageList.encryptedList,
-                    Constant.key,
-                    Constant.transformation,
-                    Constant.iv
-                )
-                messageList.list =
-                    GsonUtils.fromJson(
-                        String(decryptHexStringAES, StandardCharsets.UTF_8),
-                        object : TypeToken<ArrayList<WeworkMessageBean>>() {}.type
-                    )
-            }
-            val list = if (Constant.duplicationFilter) LinkedHashSet(messageList.list).toList() else messageList.list
-            //去重处理 丢弃之前的重复指令 丢弃之前的获取新消息指令
-            for (message in list) {
-                if (message.type == WeworkMessageBean.ROBOT_QUEUE_CLEAR) {
-                    getInstance().removeCallbacksAndMessages(null)
-                    LogUtils.i("清空全部待执行指令")
-                } else if (message.type == WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE) {
-                    WeworkController.enableLoopRunning = true
-                } else {
-                    WeworkController.mainLoopRunning = false
-                    LogUtils.v("加入指令到执行队列", if (message.fileBase64.isNullOrEmpty()) GsonUtils.toJson(message) else message.type)
-                    val messageWhat = com.aipuls.tool.utils.StringFeatureUtil.generateFeatureValue(text)
-                    if (Constant.duplicationFilter) {
-                        getInstance().removeMessages(messageWhat)
-                    }
-                    getInstance().sendMessage(Message.obtain().apply {
-                        what = messageWhat
-                        obj = message.apply {
-                            messageId = messageList.messageId
-                            meta = messageList.meta
-                            apiSend = messageList.apiSend
-                        }
-                    })
-                }
-                getInstance().removeMessages(WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE)
-                getInstance().sendMessage(Message.obtain().apply {
-                    what = WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE
-                    obj = WeworkMessageBean().apply { type = WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE }
-                })
-            }
-        }
-    }
+//    fun onMessage(webSocket: WebSocket?, text: String) {
+//        val messageList: WeworkMessageListBean<WeworkMessageBean> =
+//            GsonUtils.fromJson<WeworkMessageListBean<WeworkMessageBean>>(text, object : TypeToken<WeworkMessageListBean<ExecCallbackBean>>(){}.type)
+//        if (messageList.socketType == WeworkMessageListBean.SOCKET_TYPE_HEARTBEAT) {
+//            return
+//        }
+//        if (messageList.socketType == WeworkMessageListBean.SOCKET_TYPE_MESSAGE_CONFIRM) {
+//            return
+//        }
+//        if (messageList.socketType == WeworkMessageListBean.SOCKET_TYPE_MESSAGE_LIST) {
+//            val confirm = WeworkController.weworkService.webSocketManager.confirm(messageList.messageId)
+//            if (!confirm) return
+//            if (messageList.encryptType == 1) {
+//                val decryptHexStringAES = EncryptUtils.decryptHexStringAES(
+//                    messageList.encryptedList,
+//                    Constant.key,
+//                    Constant.transformation,
+//                    Constant.iv
+//                )
+//                messageList.list =
+//                    GsonUtils.fromJson(
+//                        String(decryptHexStringAES, StandardCharsets.UTF_8),
+//                        object : TypeToken<ArrayList<WeworkMessageBean>>() {}.type
+//                    )
+//            }
+//            val list = if (Constant.duplicationFilter) LinkedHashSet(messageList.list).toList() else messageList.list
+//            //去重处理 丢弃之前的重复指令 丢弃之前的获取新消息指令
+//            for (message in list) {
+//                if (message.type == WeworkMessageBean.ROBOT_QUEUE_CLEAR) {
+//                    getInstance().removeCallbacksAndMessages(null)
+//                    LogUtils.i("清空全部待执行指令")
+//                } else if (message.type == WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE) {
+//                    WeworkController.enableLoopRunning = true
+//                } else {
+//                    WeworkController.mainLoopRunning = false
+//                    LogUtils.v("加入指令到执行队列", if (message.fileBase64.isNullOrEmpty()) GsonUtils.toJson(message) else message.type)
+//                    val messageWhat = com.aipuls.tool.utils.StringFeatureUtil.generateFeatureValue(text)
+//                    if (Constant.duplicationFilter) {
+//                        getInstance().removeMessages(messageWhat)
+//                    }
+//                    getInstance().sendMessage(Message.obtain().apply {
+//                        what = messageWhat
+//                        obj = message.apply {
+//                            messageId = messageList.messageId
+//                            meta = messageList.meta
+//                            apiSend = messageList.apiSend
+//                        }
+//                    })
+//                }
+//                getInstance().removeMessages(WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE)
+//                getInstance().sendMessage(Message.obtain().apply {
+//                    what = WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE
+//                    obj = WeworkMessageBean().apply { type = WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE }
+//                })
+//            }
+//        }
+//    }
 
     private fun dealWithMessage(message: WeworkMessageBean) {
         when (message.type) {

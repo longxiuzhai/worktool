@@ -50,15 +50,15 @@ class WeworkService : AccessibilityService() {
         thread { Demo.test(AppUtils.isAppDebug()) }
 
         //监听是否修改成员账号并重新长连接
-        registerReceiver(object : BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
-                if (intent.getStringExtra("type") == "modify_channel") {
-                    LogUtils.e("更新channel")
-                    webSocketManager.close(1000, "modify_channel")
-                    initWebSocket()
-                }
-            }
-        }, IntentFilter(Constant.WEWORK_NOTIFY))
+//        registerReceiver(object : BroadcastReceiver() {
+//            override fun onReceive(context: Context, intent: Intent) {
+//                if (intent.getStringExtra("type") == "modify_channel") {
+//                    LogUtils.e("更新channel")
+//                    webSocketManager.close(1000, "modify_channel")
+//                    initWebSocket()
+//                }
+//            }
+//        }, IntentFilter(Constant.WEWORK_NOTIFY))
 
 
         sendBroadcast(Intent(Constant.WEWORK_NOTIFY).apply {
@@ -67,12 +67,12 @@ class WeworkService : AccessibilityService() {
         })
     }
 
-    private fun initWebSocket() {
-        val url = Constant.getWsUrl()
-        val listener = EchoWebSocketListener()
-        LogUtils.d("initWebSocket: $url")
-        webSocketManager = com.aipuls.tool.utils.WebSocketManager(url, listener)
-    }
+//    private fun initWebSocket() {
+//        val url = Constant.getWsUrl()
+//        val listener = EchoWebSocketListener()
+//        LogUtils.d("initWebSocket: $url")
+//        webSocketManager = com.aipuls.tool.utils.WebSocketManager(url, listener)
+//    }
 
     private fun initObserver() {
         if (!Constant.pushImage) return
@@ -120,61 +120,61 @@ class WeworkService : AccessibilityService() {
         WeworkController.enableLoopRunning = false
         //隐藏软键盘模式
         softKeyboardController.showMode = SHOW_MODE_AUTO
-        webSocketManager.close(1000, "service Destroy")
+//        webSocketManager.close(1000, "service Destroy")
     }
 
-    inner class EchoWebSocketListener : WebSocketListener() {
-        private val TAG = "WeworkService.EchoWebSocketListener"
-        private lateinit var socket: WebSocket
-        override fun onOpen(webSocket: WebSocket, response: Response) {
-            socket = webSocket
-            Log.e(TAG, "连接建立")
-            val robotId = Constant.robotId
-            val appVersion = SPUtils.getInstance().getString("appVersion", "")
-            val workVersion = SPUtils.getInstance().getString("workVersion", "")
-            val deviceRooted = SPUtils.getInstance().getBoolean("deviceRooted", false)
-            val hook = SPUtils.getInstance().getBoolean("hook", false)
-            LogUtils.i("连接建立: $robotId appVersion: $appVersion workVersion: $workVersion deviceRooted: $deviceRooted hook: $hook")
-            log("连接建立: $robotId appVersion: $appVersion workVersion: $workVersion deviceRooted: $deviceRooted hook: $hook")
-            LogUtils.i("设置自动跳转企业微信")
-            sendBroadcast(true)
-        }
-
-        override fun onMessage(webSocket: WebSocket, text: String) {
-            LogUtils.i("onMessage: ${ if (text.length > 1000) (text.substring(0, 1000) + "...") else text }")
-            try {
-                MyLooper.onMessage(webSocket, text)
-            } catch (e: Exception) {
-                LogUtils.e(e)
-                error(e.message)
-            }
-        }
-
-        override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-            super.onClosed(webSocket, code, reason)
-            //服务器关闭后
-            Log.e(TAG, "连接关闭 $reason")
-            sendBroadcast(false)
-        }
-
-        override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-            super.onClosing(webSocket, code, reason)
-            socket.close(code, reason)
-            Log.e(TAG, "服务端关闭连接 $code: $reason")
-            sendBroadcast(false)
-        }
-
-        override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-            //服务器中断
-            Log.e(TAG, "连接错误: " + t.toString() + response.toString())
-            sendBroadcast(false)
-        }
-
-        private fun sendBroadcast(switch: Boolean) {
-            sendBroadcast(Intent(Constant.WEWORK_NOTIFY).apply {
-                putExtra("type", "openWs")
-                putExtra("switch", switch)
-            })
-        }
-    }
+//    inner class EchoWebSocketListener : WebSocketListener() {
+//        private val TAG = "WeworkService.EchoWebSocketListener"
+//        private lateinit var socket: WebSocket
+//        override fun onOpen(webSocket: WebSocket, response: Response) {
+//            socket = webSocket
+//            Log.e(TAG, "连接建立")
+//            val robotId = Constant.robotId
+//            val appVersion = SPUtils.getInstance().getString("appVersion", "")
+//            val workVersion = SPUtils.getInstance().getString("workVersion", "")
+//            val deviceRooted = SPUtils.getInstance().getBoolean("deviceRooted", false)
+//            val hook = SPUtils.getInstance().getBoolean("hook", false)
+//            LogUtils.i("连接建立: $robotId appVersion: $appVersion workVersion: $workVersion deviceRooted: $deviceRooted hook: $hook")
+//            log("连接建立: $robotId appVersion: $appVersion workVersion: $workVersion deviceRooted: $deviceRooted hook: $hook")
+//            LogUtils.i("设置自动跳转企业微信")
+//            sendBroadcast(true)
+//        }
+//
+//        override fun onMessage(webSocket: WebSocket, text: String) {
+//            LogUtils.i("onMessage: ${ if (text.length > 1000) (text.substring(0, 1000) + "...") else text }")
+//            try {
+//                MyLooper.onMessage(webSocket, text)
+//            } catch (e: Exception) {
+//                LogUtils.e(e)
+//                error(e.message)
+//            }
+//        }
+//
+//        override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+//            super.onClosed(webSocket, code, reason)
+//            //服务器关闭后
+//            Log.e(TAG, "连接关闭 $reason")
+//            sendBroadcast(false)
+//        }
+//
+//        override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+//            super.onClosing(webSocket, code, reason)
+//            socket.close(code, reason)
+//            Log.e(TAG, "服务端关闭连接 $code: $reason")
+//            sendBroadcast(false)
+//        }
+//
+//        override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+//            //服务器中断
+//            Log.e(TAG, "连接错误: " + t.toString() + response.toString())
+//            sendBroadcast(false)
+//        }
+//
+//        private fun sendBroadcast(switch: Boolean) {
+//            sendBroadcast(Intent(Constant.WEWORK_NOTIFY).apply {
+//                putExtra("type", "openWs")
+//                putExtra("switch", switch)
+//            })
+//        }
+//    }
 }

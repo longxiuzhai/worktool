@@ -11,8 +11,11 @@ import kotlinx.android.synthetic.main.activity_listen.*
 import com.aipuls.tool.*
 import android.content.*
 import android.os.IBinder
+import android.os.Message
 import android.text.InputType
 import com.aipuls.tool.Constant
+import com.aipuls.tool.model.WeworkMessageBean
+import com.aipuls.tool.service.MyLooper
 import com.blankj.utilcode.constant.PermissionConstants
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
@@ -286,6 +289,13 @@ class ListenActivity : AppCompatActivity() {
                 this.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(this)
             }
+        }, 5000)
+        bt_save.postDelayed({
+            MyLooper.getInstance().removeMessages(WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE)
+            MyLooper.getInstance().sendMessage(Message.obtain().apply {
+                what = WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE
+                obj = WeworkMessageBean().apply { type = WeworkMessageBean.LOOP_RECEIVE_NEW_MESSAGE }
+            })
         }, 5000)
     }
 

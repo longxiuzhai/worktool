@@ -37,10 +37,6 @@ object FlowPermissionHelper {
             return true
         }
 
-        if (isBlueCloud()) {
-            return true
-        }
-
         if (isXiaoMi()) {
             return isXiaomiBgStartPermissionAllowed(context)
         }
@@ -51,6 +47,10 @@ object FlowPermissionHelper {
 
         if (isOppo() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return Settings.canDrawOverlays(context)
+        }
+
+        if (isBlueCloud()) {
+            return true
         }
         return true
     }
